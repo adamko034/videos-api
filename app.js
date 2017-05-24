@@ -1,7 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var videos = require('./routes/videos.js');
+var videos = require('./routes/videos');
+var comments = require('./routes/comments');
 var app = express();
 
 var dbName = 'videosDb';
@@ -12,6 +13,7 @@ mongoose.connect(connectionString);
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded());
 app.use('/api', videos);
+app.use('/api', comments)
 
 app.get('/', function (req, res) {
     res.send('<html><head></head><body>\

@@ -2,8 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema
 
 var commentSchema = new Schema({
-    'text': String,
-    'author': String
-})
+    'content': String,
+    'user': String,
+    'videoId': String
+});
 
 module.exports = mongoose.model('Comment', commentSchema);

@@ -1,4 +1,4 @@
-var Video = require('../models/video.js');
+var Video = require('../models/video');
 var express = require('express');
 var Busboy = require('busboy')
 var path = require('path')
@@ -19,7 +19,7 @@ router.route('/videos').get(function(req, res) {
 
 router.route('/videos').post(function(req, res) {
     var video = new Video(req.body);
-
+    console.log(req.body)
     console.log('saving video: ' + video.title + video.description + video.user)
 
     video.save(function(err) {
@@ -102,6 +102,20 @@ router.route('/videos/:id/stream').get(function(req, res) {
             movieStream.pipe(res);
         });
     })
-})
+});
+
+router.route('/videos/:id').delete(function(req,res) {
+    var id = req.params.id;
+
+    console.log('removing video:' + id)
+
+    Video.remove({_id: id}, function(err){
+        if (err) {
+            return res.send(err);
+        }
+
+        res.json({message: 'Successfulyy deleted.'});
+    })
+});
 
 module.exports = router;
